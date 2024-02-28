@@ -1,0 +1,41 @@
+# Binaries. You typically do not want
+# to track these in version control.
+/bin/
+/vendor/
+
+# Output directoris. You can even use wildcards
+# for matching a pattern such as this one.
+**/dist
+
+# Compiled Object files, Static and Dynamic libs
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+
+_testmain.go
+
+*.exe
+*.test
+*.prof
+
+# IDE files
+.idea
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
