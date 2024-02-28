@@ -2,12 +2,12 @@ package differ
 
 import (
 	"fmt"
+	"github.com/Streamline-CV/streamline-cv/api"
 	"github.com/gonvenience/ytbx"
 	"github.com/homeport/dyff/pkg/dyff"
 	"github.com/rs/zerolog/log"
 	"gopkg.in/yaml.v3"
 	"os"
-	"streamline-cv/api"
 )
 
 type DiffReporter struct {

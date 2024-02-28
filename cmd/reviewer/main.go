@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/Streamline-CV/streamline-cv/cmd/reviewer/app"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 	"os"
-	"streamline-cv/cmd/reviewer/app"
 )
 
 var configFileName, rdfOutputFileName string

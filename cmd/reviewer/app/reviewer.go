@@ -2,11 +2,11 @@ package app
 
 import (
 	"encoding/json"
+	"github.com/Streamline-CV/streamline-cv/pkg/assistant"
+	"github.com/Streamline-CV/streamline-cv/pkg/differ"
+	"github.com/Streamline-CV/streamline-cv/pkg/reporting"
 	"github.com/rs/zerolog/log"
 	"os"
-	"streamline-cv/pkg/assistant"
-	"streamline-cv/pkg/differ"
-	"streamline-cv/pkg/reporting"
 )
 
 func CreateReview(configFile string, reviewResultFile string) error {

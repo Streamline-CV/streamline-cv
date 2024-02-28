@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/Streamline-CV/streamline-cv/api"
 	"github.com/lithammer/dedent"
 	"github.com/rs/zerolog/log"
 	"github.com/sashabaranov/go-openai"
-	"streamline-cv/api"
 	"strings"
 )
 

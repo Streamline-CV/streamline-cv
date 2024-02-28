@@ -1,10 +1,10 @@
 package differ
 
 import (
+	"github.com/Streamline-CV/streamline-cv/api"
 	"github.com/google/go-cmp/cmp"
 	"github.com/lithammer/dedent"
 	"github.com/stretchr/testify/assert"
-	"streamline-cv/api"
 	"testing"
 )
 

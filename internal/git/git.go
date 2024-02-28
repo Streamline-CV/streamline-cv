@@ -1,10 +1,10 @@
 package git
 
 import (
+	"github.com/Streamline-CV/streamline-cv/api"
 	"github.com/rs/zerolog/log"
 	"io"
 	"os"
-	"streamline-cv/api"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"

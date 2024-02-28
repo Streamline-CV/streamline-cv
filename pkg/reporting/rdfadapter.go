@@ -1,8 +1,8 @@
 package reporting
 
 import (
+	"github.com/Streamline-CV/streamline-cv/api"
 	"github.com/reviewdog/reviewdog/proto/rdf"
-	"streamline-cv/api"
 )
 
 func ToRdf(refactoring api.Refactoring) (*rdf.DiagnosticResult, error) {

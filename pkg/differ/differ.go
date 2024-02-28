@@ -1,9 +1,9 @@
 package differ
 
 import (
+	"github.com/Streamline-CV/streamline-cv/api"
+	"github.com/Streamline-CV/streamline-cv/internal/git"
 	"github.com/rs/zerolog"
-	"streamline-cv/api"
-	"streamline-cv/internal/git"
 )
 
 func GetDiff(filename string, logger zerolog.Logger) (*api.ChangeReport, error) {
