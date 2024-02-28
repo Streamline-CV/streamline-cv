@@ -1,4 +1,4 @@
-module streamline-cv
+module github.com/Streamline-CV/streamline-cv
 
 go 1.21.7
 
