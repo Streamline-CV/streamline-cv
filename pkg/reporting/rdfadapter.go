@@ -5,7 +5,7 @@ import (
 	"github.com/reviewdog/reviewdog/proto/rdf"
 )
 
-func ToRdf(refactoring api.Refactoring) (*rdf.DiagnosticResult, error) {
+func ToRdf(refactoring api.SuggestionReporting) (*rdf.DiagnosticResult, error) {
 	result := rdf.DiagnosticResult{
 		Severity: rdf.Severity_WARNING,
 		Source: &rdf.Source{
@@ -35,6 +35,30 @@ func ToRdf(refactoring api.Refactoring) (*rdf.DiagnosticResult, error) {
 					Text:  suggestion.Value,
 				},
 			},
+		}
+
+		result.Diagnostics = append(result.Diagnostics, &diagnostic)
+	}
+
+	return &result, nil
+}
+
+func ChecksToRdf(checkReporting api.CheckReporting) (*rdf.DiagnosticResult, error) {
+	result := rdf.DiagnosticResult{
+		Severity: rdf.Severity_WARNING,
+		Source: &rdf.Source{
+			Name: "Streamline AI assistant",
+		},
+	}
+
+	if len(checkReporting.Checks) == 0 {
+		return &result, nil
+	}
+
+	for _, check := range checkReporting.Checks {
+		diagnostic := rdf.Diagnostic{
+			Severity: mapSeverity(check.Severity),
+			Message:  check.Message,
 		}
 
 		result.Diagnostics = append(result.Diagnostics, &diagnostic)

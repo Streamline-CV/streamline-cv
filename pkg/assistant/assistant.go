@@ -28,7 +28,7 @@ func NewAiAssistant(openaiKey string) (*AiAssistant, error) {
 	}, nil
 }
 
-func (a *AiAssistant) Refactor(changeReport *api.ChangeReport) (*api.Refactoring, error) {
+func (a *AiAssistant) Refactor(changeReport *api.ChangeReport) (*api.SuggestionReporting, error) {
 
 	var suggestions []api.Suggestion
 
@@ -70,7 +70,7 @@ func (a *AiAssistant) Refactor(changeReport *api.ChangeReport) (*api.Refactoring
 		}
 	}
 
-	return &api.Refactoring{
+	return &api.SuggestionReporting{
 		Suggestions: suggestions,
 	}, nil
 }
