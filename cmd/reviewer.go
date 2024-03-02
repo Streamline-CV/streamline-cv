@@ -1,11 +1,13 @@
-package app
+package main
 
 import (
 	"encoding/json"
 	"github.com/Streamline-CV/streamline-cv/pkg/assistant"
 	"github.com/Streamline-CV/streamline-cv/pkg/differ"
 	"github.com/Streamline-CV/streamline-cv/pkg/reporting"
+	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	"github.com/spf13/cobra"
 	"os"
 )
 
@@ -36,4 +38,27 @@ func CreateReview(configFile string, reviewResultFile string) error {
 		log.Fatal().Msgf("Failed to write file: %e", err)
 	}
 	return nil
+}
+
+func init() {
+	var inputFile, outputFile string
+
+	var reviewCmd = &cobra.Command{
+		Use:   "reviewer",
+		Short: "Streamline CV reviewer",
+		Run: func(cmd *cobra.Command, args []string) {
+			log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stdout})
+			if inputFile == "" || outputFile == "" {
+				log.Fatal().Msg("You must specify both a CV config file and an RDF output file.")
+			}
+			err := CreateReview(inputFile, outputFile)
+			if err != nil {
+				log.Fatal().Msgf("Failed doing review: %e", err)
+			}
+		},
+	}
+	reviewCmd.Flags().StringVarP(&inputFile, "config", "c", "config.yaml", "The path to the CV config file")
+	reviewCmd.Flags().StringVarP(&outputFile, "outfile", "o", "rdf.json", "The name of the RDF output file")
+
+	rootCmd.AddCommand(reviewCmd)
 }
