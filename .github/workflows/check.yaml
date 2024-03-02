@@ -4,6 +4,8 @@ on:
     workflows: ["Build PR"]
     types:
       - completed
+    branches:
+      - main
 jobs:
   check:
     runs-on: ubuntu-latest
