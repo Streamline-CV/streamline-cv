@@ -61,7 +61,7 @@ func init() {
 			}
 		},
 	}
-	pdfCheckCmd.Flags().StringVarP(&inputFile, "config", "c", "cv.pdf", "The path to the CV config file")
+	pdfCheckCmd.Flags().StringVarP(&inputFile, "pdf", "c", "cv.pdf", "The path to the CV config file")
 	pdfCheckCmd.Flags().StringVarP(&outputFile, "outfile", "o", "checks-rdf.json", "The name of the RDF output file")
 
 	rootCmd.AddCommand(pdfCheckCmd)
