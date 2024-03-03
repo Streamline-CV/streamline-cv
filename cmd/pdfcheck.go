@@ -27,7 +27,7 @@ func CheckPdf(inputFile string, outputFile string) error {
 			{
 				Message:  fmt.Sprintf("Pdf consist of %d pages", numPages),
 				CheckId:  "PdfSizeCheck",
-				Severity: "WARNING",
+				Severity: "ERROR",
 			},
 		},
 	}
