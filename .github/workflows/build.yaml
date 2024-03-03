@@ -46,5 +46,5 @@ jobs:
         run: |
           set -o pipefail
           cat pdfcheck_rdf.json
-          cat pdfcheck_rdf.json | reviewdog -name="PDF check" -f=rdjson -reporter=github-check -fail-on-error
+          cat pdfcheck_rdf.json | reviewdog -name="PDF check" -filter-mode=nofilter -f=rdjson -reporter=github-check -fail-on-error
 
