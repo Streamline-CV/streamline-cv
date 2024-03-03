@@ -24,7 +24,6 @@ jobs:
         uses: dawidd6/action-download-artifact@v3
         with:
           workflow: Build PR
-          name: your-artifact-name
           workflow_conclusion: success
           pr: ${{github.event.pull_request.number}}
       - name: Run checker
