@@ -59,6 +59,9 @@ func ChecksToRdf(checkReporting api.CheckReporting) (*rdf.DiagnosticResult, erro
 		diagnostic := rdf.Diagnostic{
 			Severity: mapSeverity(check.Severity),
 			Message:  check.Message,
+			Location: &rdf.Location{
+				Path: "CV.pdf",
+			},
 		}
 
 		result.Diagnostics = append(result.Diagnostics, &diagnostic)
