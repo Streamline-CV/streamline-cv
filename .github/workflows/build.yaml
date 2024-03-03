@@ -45,5 +45,6 @@ jobs:
           ACTIONS_RUNNER_PRINT_LOG_TO_STDOUT: true
         run: |
           set -o pipefail
-          cat pdfcheck_rdf.json | reviewdog -name="Streamline checks" -f=rdjson -reporter=github-check -fail-on-error
+          cat pdfcheck_rdf.json
+          cat pdfcheck_rdf.json | reviewdog -name="PDF check" -f=rdjson -reporter=github-check -fail-on-error
 
