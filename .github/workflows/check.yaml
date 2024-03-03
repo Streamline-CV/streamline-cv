@@ -4,6 +4,10 @@ on:
     workflows: ["Build_PR"]
     types:
       - completed
+    branches:
+      - 'pr-checks'
+  workflow_dispatch: {}
+
 jobs:
   check:
     runs-on: ubuntu-latest
