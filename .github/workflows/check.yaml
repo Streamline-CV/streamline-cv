@@ -1,11 +1,9 @@
 name: CV checks
 on:
   workflow_run:
-    workflows: ["Build PR"]
+    workflows: ["Build_PR"]
     types:
       - completed
-    branches:
-      - main
 jobs:
   check:
     runs-on: ubuntu-latest
