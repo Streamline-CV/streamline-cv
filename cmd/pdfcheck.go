@@ -22,12 +22,16 @@ func CheckPdf(inputFile string, outputFile string) error {
 	if err != nil {
 		return err
 	}
+	var severity = "INFO"
+	if numPages > 1 {
+		severity = "ERROR"
+	}
 	checksRefactoring := api.CheckReporting{
 		Checks: []api.Check{
 			{
 				Message:  fmt.Sprintf("Pdf consist of %d pages", numPages),
 				CheckId:  "PdfSizeCheck",
-				Severity: "ERROR",
+				Severity: severity,
 			},
 		},
 	}

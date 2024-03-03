@@ -45,7 +45,7 @@ func ToRdf(refactoring api.SuggestionReporting) (*rdf.DiagnosticResult, error) {
 
 func ChecksToRdf(checkReporting api.CheckReporting) (*rdf.DiagnosticResult, error) {
 	result := rdf.DiagnosticResult{
-		Severity: rdf.Severity_WARNING,
+		Severity: rdf.Severity_INFO,
 		Source: &rdf.Source{
 			Name: "Streamline AI assistant",
 		},
@@ -54,10 +54,14 @@ func ChecksToRdf(checkReporting api.CheckReporting) (*rdf.DiagnosticResult, erro
 	if len(checkReporting.Checks) == 0 {
 		return &result, nil
 	}
-
+	var failed = false
 	for _, check := range checkReporting.Checks {
+		severity := mapSeverity(check.Severity)
+		if severity == rdf.Severity_ERROR {
+			failed = true
+		}
 		diagnostic := rdf.Diagnostic{
-			Severity: mapSeverity(check.Severity),
+			Severity: severity,
 			Message:  check.Message,
 			Location: &rdf.Location{
 				Path: "CV.pdf",
@@ -65,6 +69,10 @@ func ChecksToRdf(checkReporting api.CheckReporting) (*rdf.DiagnosticResult, erro
 		}
 
 		result.Diagnostics = append(result.Diagnostics, &diagnostic)
+	}
+
+	if failed {
+		result.Severity = rdf.Severity_ERROR
 	}
 
 	return &result, nil
