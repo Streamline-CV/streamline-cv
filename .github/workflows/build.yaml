@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: |
           FILE_NAME=$(find pdf-artifacts -type f -name '*CV.pdf' -print -quit)
-          go mod download
+          go mod tidy
           go run ./cmd pdfcheck -c "$FILE_NAME" -o pdfcheck_rdf.json
       - name: Run reviewdog
         shell: bash
