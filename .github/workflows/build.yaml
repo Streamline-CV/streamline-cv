@@ -17,7 +17,7 @@ jobs:
         uses: Streamline-CV/gh-action-build@main
   check:
     runs-on: ubuntu-latest
-    name: Build CV and cover letter
+    name: Run CV pdf checks
     needs:
       - build
     steps:
