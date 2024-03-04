@@ -1,0 +1,49 @@
+name: Build_PR
+on:
+  pull_request:
+    branches: [ "main" ]
+permissions:
+  contents: read
+  checks: write
+  issues: write
+  pull-requests: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build CV and cover letter
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Streamline CV GitHub Action
+        uses: Streamline-CV/gh-action-build@main
+  check:
+    runs-on: ubuntu-latest
+    name: Run CV pdf checks
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.21
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+      - name: Download artifact
+        id: download-artifact
+        uses: actions/download-artifact@v4
+      - name: Run checker
+        shell: bash
+        run: |
+          FILE_NAME=$(find pdf-artifacts -type f -name '*CV.pdf' -print -quit)
+          go mod tidy
+          go run ./cmd pdfcheck -c "$FILE_NAME" -o pdfcheck_rdf.json
+      - name: Run reviewdog
+        shell: bash
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_RUNNER_PRINT_LOG_TO_STDOUT: true
+        run: |
+          set -o pipefail
+          cat pdfcheck_rdf.json | reviewdog -name="PDF check" -filter-mode=nofilter -f=rdjson -reporter=github-check -fail-on-error
+

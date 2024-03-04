@@ -1,8 +1,17 @@
 package api
 
-type Refactoring struct {
+type Severity string
+
+const (
+	INFO  Severity = "Info"
+	WARN  Severity = "Warning"
+	ERROR Severity = "Error"
+)
+
+type SuggestionReporting struct {
 	Suggestions []Suggestion
 }
+
 type Suggestion struct {
 	Path        []string
 	Line        int
@@ -10,5 +19,15 @@ type Suggestion struct {
 	ColumnEnd   int
 	Value       string
 	Comment     string
-	Severity    string
+	Severity    Severity
+}
+
+type CheckReporting struct {
+	Checks []Check
+}
+
+type Check struct {
+	CheckId  string
+	Message  string
+	Severity Severity
 }

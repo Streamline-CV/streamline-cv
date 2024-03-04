@@ -12,9 +12,9 @@ import (
 )
 
 type AiSuggestion struct {
-	SuggestedText string `json:"suggestedText"`
-	Reasoning     string `json:"reasoning"`
-	Severity      string `json:"severity"`
+	SuggestedText string       `json:"suggestedText"`
+	Reasoning     string       `json:"reasoning"`
+	Severity      api.Severity `json:"severity"`
 }
 
 type AiAssistant struct {
@@ -28,7 +28,7 @@ func NewAiAssistant(openaiKey string) (*AiAssistant, error) {
 	}, nil
 }
 
-func (a *AiAssistant) Refactor(changeReport *api.ChangeReport) (*api.Refactoring, error) {
+func (a *AiAssistant) Refactor(changeReport *api.ChangeReport) (*api.SuggestionReporting, error) {
 
 	var suggestions []api.Suggestion
 
@@ -70,7 +70,7 @@ func (a *AiAssistant) Refactor(changeReport *api.ChangeReport) (*api.Refactoring
 		}
 	}
 
-	return &api.Refactoring{
+	return &api.SuggestionReporting{
 		Suggestions: suggestions,
 	}, nil
 }
@@ -89,7 +89,7 @@ func generatePrompt(change api.Change) string {
 	{
 		"suggestedText": "Suggested text value",
 		"reasoning": "I suggested updating text value because it sounds more professional",
-        "severity": "INFO" // severity level of the suggestion, can be INFO,WARNING,ERROR
+        "severity": "Info" // severity level of the suggestion, can be Info,Warning,Error
 	}\n
 	If the is nothing to improve, leave suggestedText empty.\n
 	Always fill "reasoning" field with the explanation for "suggestedText" or why no improvement is necessary.\n
