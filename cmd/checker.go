@@ -2,40 +2,21 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"github.com/Streamline-CV/streamline-cv/api"
+	"github.com/Streamline-CV/streamline-cv/pkg/checker"
 	"github.com/Streamline-CV/streamline-cv/pkg/reporting"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
-	"github.com/unidoc/unipdf/v3/model"
 	"os"
+
+	//import checkers to initialize them
+	_ "github.com/Streamline-CV/streamline-cv/pkg/checker/pdf"
 )
 
-func CheckPdf(inputFile string, outputFile string) error {
-	reader, _, err := model.NewPdfReaderFromFile(inputFile, nil)
-	if err != nil {
-		return err
-	}
+func Check(inputFile string, outputFile string) error {
 
-	numPages, err := reader.GetNumPages()
-	if err != nil {
-		return err
-	}
-	var severity = "INFO"
-	if numPages > 1 {
-		severity = "ERROR"
-	}
-	checksRefactoring := api.CheckReporting{
-		Checks: []api.Check{
-			{
-				Message:  fmt.Sprintf("Pdf consist of %d pages", numPages),
-				CheckId:  "PdfSizeCheck",
-				Severity: severity,
-			},
-		},
-	}
-	rdf, err := reporting.ChecksToRdf(checksRefactoring)
+	checks, err := checker.Registry.RunAllChecks(inputFile)
+	rdf, err := reporting.ChecksToRdf(checks)
 	jsonData, err := json.Marshal(rdf)
 	if err != nil {
 		log.Fatal().Msgf("Failed writing rdf to json: %s", err)
@@ -59,7 +40,7 @@ func init() {
 				log.Fatal().Msg("You must specify both a CV config file and an RDF output file.")
 			}
 			log.Info().Msgf("Running pdf check")
-			err := CheckPdf(inputFile, outputFile)
+			err := Check(inputFile, outputFile)
 			if err != nil {
 				log.Fatal().Msgf("Failed doing check: %e", err)
 			}

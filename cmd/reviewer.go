@@ -25,7 +25,7 @@ func CreateReview(configFile string, reviewResultFile string) error {
 	if err != nil {
 		log.Fatal().Msgf("Failed getting refactoring: %e", err)
 	}
-	rdf, err := reporting.ToRdf(*refactoring)
+	rdf, err := reporting.ToRdf(refactoring)
 	if err != nil {
 		log.Fatal().Msgf("Failed formatting to rdf: %s", err)
 	}

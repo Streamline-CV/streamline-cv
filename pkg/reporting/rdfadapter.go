@@ -5,7 +5,7 @@ import (
 	"github.com/reviewdog/reviewdog/proto/rdf"
 )
 
-func ToRdf(refactoring api.SuggestionReporting) (*rdf.DiagnosticResult, error) {
+func ToRdf(refactoring *api.SuggestionReporting) (*rdf.DiagnosticResult, error) {
 	result := rdf.DiagnosticResult{
 		Severity: rdf.Severity_WARNING,
 		Source: &rdf.Source{
@@ -43,11 +43,11 @@ func ToRdf(refactoring api.SuggestionReporting) (*rdf.DiagnosticResult, error) {
 	return &result, nil
 }
 
-func ChecksToRdf(checkReporting api.CheckReporting) (*rdf.DiagnosticResult, error) {
+func ChecksToRdf(checkReporting *api.CheckReporting) (*rdf.DiagnosticResult, error) {
 	result := rdf.DiagnosticResult{
 		Severity: rdf.Severity_INFO,
 		Source: &rdf.Source{
-			Name: "Streamline AI assistant",
+			Name: "Streamline checker",
 		},
 	}
 
@@ -78,13 +78,13 @@ func ChecksToRdf(checkReporting api.CheckReporting) (*rdf.DiagnosticResult, erro
 	return &result, nil
 }
 
-func mapSeverity(severity string) rdf.Severity {
+func mapSeverity(severity api.Severity) rdf.Severity {
 	switch severity {
-	case "INFO":
+	case api.INFO:
 		return rdf.Severity_INFO
-	case "WARNING":
+	case api.WARN:
 		return rdf.Severity_WARNING
-	case "ERROR":
+	case api.ERROR:
 		return rdf.Severity_ERROR
 	default:
 		return rdf.Severity_UNKNOWN_SEVERITY
